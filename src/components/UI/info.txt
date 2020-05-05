@@ -1,0 +1,11 @@
+Esta carpeta contendra los compenetes que usara el programa
+
+en la carpeta atomos van componentes bases como lo son 
+etiquetas html ejempli un <p>
+
+en la caperta moleculas van conjuntos de atomos
+
+en organismos van conjuntos de moleculas
+
+y en plantillas van lo que ya es el conjunto de organismos
+es decir paguinas
