@@ -1,0 +1,2 @@
+Aqui van los atomos elementos mas pequeños en el diseño, estos pueden ser elementos como botones, iconos, 
+textos.

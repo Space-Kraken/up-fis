@@ -1,0 +1,16 @@
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  align-content: stretch;
+  // justify-content: left;
+
+  span {
+    // justify-content: flex-start;
+    // align-items: center;
+    margin-left: 3px;
+    opacity: 0.3;
+    // width: fit-content;
+  }
+}
