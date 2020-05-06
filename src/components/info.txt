@@ -1,0 +1,9 @@
+Esta es la carpeta de componentes en esta carpeta se crearan cada una de los fragmentos de la interfaz,
+estos fragmentos se dividen en varias secciones:
+
+    -> Atomos
+    -> Moleculas
+    -> Organismos
+
+    -> Plantillas
+    -> Paginas

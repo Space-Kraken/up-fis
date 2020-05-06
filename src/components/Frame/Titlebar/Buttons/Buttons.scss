@@ -1,0 +1,64 @@
+.option {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  &__min,
+  &__max,
+  &__close {
+    display: inline-block;
+    color: white;
+    padding: 10px 10px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  &__min:hover {
+    background: #1e2025c4;
+    i {
+      color: gray;
+    }
+  }
+  &__max:hover {
+    background: #1e2025c4;
+    i {
+      color: gray;
+    }
+  }
+  &__close:hover {
+    background: rgba(143, 15, 15, 0.719);
+    i {
+      color: black;
+    }
+  }
+
+  -webkit-app-region: no-drag;
+
+  i {
+    display: contents;
+    color: white;
+  }
+}
+
+.conf {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+  i {
+    color: white;
+    padding: 10px 10px;
+    margin-right: 0%;
+    margin-left: 0%;
+    font-size: 20px;
+    height: 100%;
+    width: fit-content;
+    cursor: pointer;
+    opacity: 0.5;
+    -webkit-app-region: no-drag;
+    &:hover {
+      background-color: #1e2025c4;
+    }
+  }
+}
