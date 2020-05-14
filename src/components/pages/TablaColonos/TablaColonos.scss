@@ -1,13 +1,20 @@
 .tableColonos {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-content: flex-start;
-}
-.table {
-  .body {
-    color: grey;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+  .formulario {
+    // width: 99%;
+    // margin: 0.5%;
+    .inp {
+      margin: 0.5%;
+    }
+    .btn {
+      margin: 0.5%;
+      align-self: center;
+      width: 99%;
+    }
   }
 }
