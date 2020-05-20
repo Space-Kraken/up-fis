@@ -1,0 +1,54 @@
+<!-- Direcciones -->
+
+
+[
+  {
+    "id": 0,
+    "direccion": "Villa victoria"
+  },
+  {
+    "id": 1,
+    "direccion": "Villa Acuña"
+  },
+  {
+    "id": 2,
+    "direccion": "Villa De La Paz"
+  },
+  {
+    "id": 3,
+    "direccion": "Villa De Reyes"
+  },
+  {
+    "id": 4,
+    "direccion": "Villa Del Pedregal"
+  },
+  {
+    "id": 5,
+    "direccion": "Villa Del Carbon"
+  },
+  {
+    "id": 6,
+    "direccion": "Villa Ocampo"
+  },
+  {
+    "id": 7,
+    "direccion": "Villa Union"
+  },
+  {
+    "id": 8,
+    "direccion": "Villa De Coss"
+  },
+  {
+    "id": 9,
+    "direccion": "Villa De Guadalupe"
+  },
+  {
+    "id": 10,
+    "direccion": "Villa Escalante"
+  }
+]
+
+
+
+<!-- Direcciones -->
+

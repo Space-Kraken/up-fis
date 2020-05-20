@@ -1,13 +1,32 @@
 import React, { Component } from "react";
 import { Label, Select, Button, Form, Input } from "semantic-ui-react";
 import "./TablaColonos.scss";
+import AlertDialog from "./../RegistroPagos/RegistroPagos";
 class TablaColonos extends Component {
   render() {
     var fecha = new Date();
     const moni = Math.round(Math.random() * 500000);
     const options = [
-      { key: "1", value: "Calle 1", text: "Luis cortazar" },
-      { key: "2", value: "Calle 2", text: "Dr. Mora" },
+      {
+        id: 0,
+        value: "test",
+        text: "Milpa",
+      },
+      {
+        id: 1,
+        value: "test1",
+        text: "Pileta",
+      },
+      {
+        id: 2,
+        value: "test2",
+        text: "Granero",
+      },
+      {
+        id: 3,
+        value: "test",
+        text: "Huerto",
+      },
     ];
     return (
       <div className="tableColonos">
@@ -68,9 +87,7 @@ class TablaColonos extends Component {
             }
             readOnly
           ></Input>
-          <Button size="medium" className="btn">
-            Aceptar
-          </Button>
+          <AlertDialog></AlertDialog>
           {/* <Form.Button className="btn">Aceptar</Form.Button> */}
         </Form>
       </div>

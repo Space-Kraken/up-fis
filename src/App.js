@@ -3,6 +3,7 @@ import "semantic-ui-css/semantic.min.css";
 import Footer from "./components/Frame/Footer";
 import Titlebar from "./components/Frame/Titlebar";
 import TablaColonos from "./components/pages/TablaColonos/TablaColonos";
+// import RegistroPagos from "./components/pages/RegistroPagos/RegistroPagos";
 import "./App.scss";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Titlebar />
       <div className="main-dev">
         <TablaColonos />
+        {/* <RegistroPagos /> */}
       </div>
       <Footer />
     </div>

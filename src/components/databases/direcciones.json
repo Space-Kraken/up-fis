@@ -1,0 +1,18 @@
+[
+  {
+    "id": 0,
+    "direccion": "Milpa"
+  },
+  {
+    "id": 1,
+    "direccion": "Pileta"
+  },
+  {
+    "id": 2,
+    "direccion": "Granero"
+  },
+  {
+    "id": 3,
+    "direccion": "Huerto"
+  }
+]
