@@ -127,7 +127,7 @@ export default function CollapsibleTable() {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell align="center">Colono</TableCell>
+            <TableCell>Colono</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
