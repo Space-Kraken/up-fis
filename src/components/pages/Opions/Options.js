@@ -27,7 +27,13 @@ export default function Options(props) {
         >
           Registrar un pago
         </Button>
-        <Button variant="contained" color="primary">
+        <Button
+          onClick={() => {
+            setselectedForm("lista");
+          }}
+          variant="contained"
+          color="primary"
+        >
           Ver historial de pagos
         </Button>
         {/* <Button variant="contained" color="secondary">

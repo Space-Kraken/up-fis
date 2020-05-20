@@ -19,7 +19,7 @@ export default function AlertDialog(props) {
 
   const handleAcept = () => {
     setOpen(false);
-    setselectedForm(null);
+    setselectedForm("lista");
   };
 
   return (
