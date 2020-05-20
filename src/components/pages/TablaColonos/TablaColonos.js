@@ -74,11 +74,11 @@ class TablaColonos extends Component {
             type="text"
             name="email"
             value={
-              fecha.getDay() +
+              fecha.getDate() +
               "/" +
               (fecha.getMonth() + 1) +
               "/" +
-              fecha.getDate() +
+              fecha.getFullYear() +
               " - " +
               fecha.getHours() +
               ":" +
