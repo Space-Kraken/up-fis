@@ -7,13 +7,14 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import App from "./../../../App";
 export default function AlertDialog(props) {
-  const { setselectedForm } = props;
+  const { amount, setRecourses, setselectedForm } = props;
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
+    setRecourses(10);
     setOpen(false);
   };
 
@@ -26,6 +27,15 @@ export default function AlertDialog(props) {
     <div>
       <Button variant="contained" color="default" onClick={handleClickOpen}>
         Registrar pago
+      </Button>
+      <Button
+        variant="contained"
+        color="default"
+        onClick={() => {
+          setselectedForm(null);
+        }}
+      >
+        Atras
       </Button>
       <Dialog
         open={open}

@@ -4,9 +4,10 @@ import "./TablaColonos.scss";
 import AlertDialog from "./../RegistroPagos/RegistroPagos";
 
 function TablaColonos(props) {
+  const [recourses, setRecourses] = useState(0);
   const { setselectedForm } = props;
-  var fecha = new Date();
-  const moni = Math.round(Math.random() * 500000);
+  let fecha = new Date();
+  var moni = 0;
   const options = [
     {
       id: 0,
@@ -34,7 +35,7 @@ function TablaColonos(props) {
       <h2>Portones de la hacienda</h2>
       <Input
         className="count"
-        value={moni}
+        value={recourses}
         size="mini"
         labelPosition="right"
         type="text"
@@ -61,11 +62,15 @@ function TablaColonos(props) {
         ></Input>
 
         <Input
+          id="monto"
           label={{ icon: "money bill alternate outline" }}
           labelPosition="left corner"
           className="inp"
           type="text"
           name="email"
+          onChange={(text) => {
+            moni = text;
+          }}
           placeholder="Monto"
         ></Input>
         <Input
@@ -88,7 +93,12 @@ function TablaColonos(props) {
           }
           readOnly
         ></Input>
-        <AlertDialog setselectedForm={setselectedForm} />
+        <AlertDialog
+          amount={moni}
+          setRecourses={setRecourses}
+          recourses={recourses}
+          setselectedForm={setselectedForm}
+        />
         {/* <Form.Button className="btn">Aceptar</Form.Button> */}
       </Form>
     </div>
