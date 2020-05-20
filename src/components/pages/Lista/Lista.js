@@ -20,11 +20,10 @@ function createData(name, calories, fat) {
 }
 
 const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
+  createData("Milpa #951", "19-05-2020", 600),
+  createData("Pileta #1235", "05-04-2020", 800),
+  createData("Granero #974", "01-01-2020", 1600),
+  createData("Huerto #117", "25-03-2020", 3700),
 ];
 
 export default function DenseTable(props) {
@@ -54,8 +53,8 @@ export default function DenseTable(props) {
           <TableHead>
             <TableRow>
               <TableCell>Direccion</TableCell>
-              <TableCell align="right">Fecha</TableCell>
-              <TableCell align="right">Monto</TableCell>
+              <TableCell align="center">Fecha</TableCell>
+              <TableCell align="center">Monto</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -64,8 +63,8 @@ export default function DenseTable(props) {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
+                <TableCell align="center">{row.calories}</TableCell>
+                <TableCell align="center">{row.fat}</TableCell>
               </TableRow>
             ))}
           </TableBody>
