@@ -1,0 +1,69 @@
+.inp {
+  margin: 0.5%;
+  align-self: center;
+  width: 100%;
+  //   height: 4rem;
+  text-align: center;
+  input,
+  .sel {
+    background-color: #1c313a;
+    color: white;
+  }
+  input:focus {
+  }
+}
+
+.btn {
+  // margin-left: -0.5%;
+  //   margin-top: 0.1%;
+  align-self: center;
+  width: 100%;
+}
+.tableColonos {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: unset;
+  align-content: stretch;
+  .count {
+    align-self: center;
+    width: fit-content;
+  }
+  .formulario {
+    // width: 99%;
+    // margin: 0.5%;
+    .sel {
+      background-color: #1c313a;
+      color: white;
+    }
+  }
+}
+
+// @media (max-width: 600px) {
+//   .tableColonos {
+//     display: flex;
+//     flex-direction: column;
+//     flex-wrap: wrap;
+//     justify-content: flex-start;
+//     align-items: baseline;
+//     align-content: stretch;
+//     .formulario {
+//       // width: 99%;
+//       // margin: 0.5%;
+//       .inp {
+//         margin: 0.5%;
+//         Select,
+//         select option {
+//           width: 80%;
+//         }
+//       }
+//       .btn {
+//         margin-left: 0.5%;
+//         margin-top: 1%;
+//         align-self: center;
+//         width: 99%;
+//       }
+//     }
+//   }
+// }
