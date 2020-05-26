@@ -6,15 +6,17 @@ import TablaColonos from "./components/pages/TablaColonos/TablaColonos";
 import Options from "./components/pages/Opions/Options";
 import Test from "./components/pages/Test/Test";
 import "./App.scss";
-// import RegistroPagos from "./components/pages/RegistroPagos/RegistroPagos";
-
+import Todos from "./components/Todos"
 function App() {
+  
   return (
     <div className="content">
       <Titlebar />
       <div className="main-dev">
+        <TablaColonos />
+        <br/>
+        <Todos/>
         <Test />
-
         {/* <TablaColonos /> */}
         {/* <RegistroPagos /> */}
       </div>
