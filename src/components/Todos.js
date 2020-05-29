@@ -51,7 +51,6 @@ export default class Todos extends Component {
   };
 
   render() {
-   
     const useStyles = makeStyles({
       table: {
         minWidth: 650,
@@ -103,18 +102,19 @@ export default class Todos extends Component {
     let fecha = String(dia + "/" + mes + "/" + date.getFullYear());
     const { items, domicilio, numero, monto } = this.state;
     // fecha = "test";
-  let suma=0;
-      function sumar(){
-    
-      items.map((item)=>(suma+=item.data.monto)) 
+    let suma = 0;
+    function sumar() {
+      items.map((item) => (suma += parseInt(item.data.monto)));
     }
     sumar();
     return (
       <div>
-      <p><strong>Total de ingresos:</strong></p>
-      
+        <p>
+          <strong>Total de ingresos:</strong>
+        </p>
+
         <InputGroup>
-        <Input
+          <Input
             label={{ icon: "dollar sing" }}
             labelPosition="left corner"
             className="inp"
@@ -125,8 +125,10 @@ export default class Todos extends Component {
             value={suma}
           />
 
-      <br/>
-      <p><strong>Registro de pago:</strong></p>
+          <br />
+          <p>
+            <strong>Registro de pago:</strong>
+          </p>
           {/* <Select
                 className="sel"
                 fluid
