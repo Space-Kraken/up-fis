@@ -40,7 +40,7 @@ export default class Todos extends Component {
         domicilio: domicilio,
         numero: numero,
         fecha: t,
-        monto: monto,
+        monto: parseInt(monto),
       });
       this.setState({
         domicilio: "",
@@ -51,45 +51,6 @@ export default class Todos extends Component {
   };
 
   render() {
-    const useStyles = makeStyles({
-      table: {
-        minWidth: 650,
-      },
-    });
-
-    function createData(name, calories, fat) {
-      return { name, calories, fat };
-    }
-
-    const rows = [
-      createData("Milpa #951", "19-05-2020", 600),
-      createData("Pileta #1235", "05-04-2020", 800),
-      createData("Granero #974", "01-01-2020", 1600),
-      createData("Huerto #117", "25-03-2020", 3700),
-    ];
-
-    const options = [
-      {
-        id: 0,
-        value: "Milpa",
-        text: "Milpa",
-      },
-      {
-        id: 1,
-        value: "Pileta",
-        text: "Pileta",
-      },
-      {
-        id: 2,
-        value: "Granero",
-        text: "Granero",
-      },
-      {
-        id: 3,
-        value: "Huerto",
-        text: "Huerto",
-      },
-    ];
     let date = new Date();
     let dia = date.getDate();
     if (date.getDate() < 10) {
