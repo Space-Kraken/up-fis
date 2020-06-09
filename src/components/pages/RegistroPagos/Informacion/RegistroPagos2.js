@@ -5,17 +5,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Checkbox from "@material-ui/core/Checkbox";
-import AlertDialog2 from "./Informacion/RegistroPagos2";
-import App from "./../../../App";
-export default function AlertDialog(props) {
+export default function AlertDialog2(props) {
   const { ban, dom, num, monto, method } = props;
-  const [open, setOpen] = React.useState(false);
-  const [checked, setChecked] = React.useState(false);
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
+  const [open, setOpen] = React.useState(true);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -27,28 +19,12 @@ export default function AlertDialog(props) {
 
   const handleAcept = () => {
     setOpen(false);
-    method(ban, checked);
+    method(ban);
     // setselectedForm("lista");
   };
+
   return (
     <div>
-      <Button
-        size="large"
-        variant="contained"
-        color="default"
-        onClick={handleClickOpen}
-      >
-        Registrar pago
-      </Button>
-      {/* <Button
-        variant="contained"
-        color="default"
-        onClick={() => {
-          setselectedForm(null);
-        }}
-      >
-        Atras
-      </Button> */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -65,13 +41,6 @@ export default function AlertDialog(props) {
             {"Domimicilio: " + dom + "#" + num}
             <br></br>
             {"Monto a saldar: " + monto}
-            <br></br>
-            Realizar otro pago despues de este
-            <Checkbox
-              checked={checked}
-              onChange={handleChange}
-              inputProps={{ "aria-label": "primary checkbox" }}
-            />
           </DialogContentText>
         </DialogContent>
         <DialogActions>

@@ -12,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import { Input } from "semantic-ui-react";
 import { Row, Col, InputGroup } from "reactstrap";
 import AlertDialog from "./pages/RegistroPagos/RegistroPagos";
+import AlertDialog2 from "./pages/RegistroPagos/Informacion/RegistroPagos2";
 import "./Todos.scss";
 
 export default class Todos extends Component {
@@ -33,23 +34,29 @@ export default class Todos extends Component {
       });
     });
   }
-  action = (t) => {
-    if (this.state.ban) {
-      const { domicilio, numero, monto } = this.state;
-      db.collection("reg_pagos").add({
-        domicilio: domicilio,
-        numero: numero,
-        fecha: t,
-        monto: parseInt(monto),
-      });
+  callback = () => {
+    return <AlertDialog2 />;
+  };
+  action = (t, c) => {
+    const { domicilio, numero, monto } = this.state;
+    db.collection("reg_pagos").add({
+      domicilio: domicilio,
+      numero: numero,
+      fecha: t,
+      monto: parseInt(monto),
+    });
+    if (!c) {
       this.setState({
         domicilio: "",
         numero: "",
         monto: "",
       });
+    } else {
+      this.setState({
+        monto: "",
+      });
     }
   };
-
   render() {
     let date = new Date();
     let dia = date.getDate();
@@ -61,7 +68,7 @@ export default class Todos extends Component {
       mes = "0" + (date.getMonth() + 1);
     }
     let fecha = String(dia + "/" + mes + "/" + date.getFullYear());
-    const { items, domicilio, numero, monto } = this.state;
+    const { items, domicilio, numero, monto, ban } = this.state;
     // fecha = "test";
     let suma = 0;
     function sumar() {
@@ -162,9 +169,15 @@ export default class Todos extends Component {
           />
         </InputGroup>
         <div className="btn">
-          <AlertDialog className="btn" ban={fecha} method={this.action} />
+          <AlertDialog
+            className="btn"
+            ban={fecha}
+            dom={domicilio}
+            num={numero}
+            monto={monto}
+            method={this.action}
+          />
         </div>
-
         <br></br>
         <br></br>
         <TableContainer component={Paper}>
