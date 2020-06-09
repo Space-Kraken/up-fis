@@ -23,6 +23,8 @@ export default class Todos extends Component {
     fecha: "",
     monto: "",
     ban: true,
+    edit:false,
+    id:""
   };
 
   componentDidMount() {
@@ -38,13 +40,14 @@ export default class Todos extends Component {
     return <AlertDialog2 />;
   };
   action = (t, c) => {
-    const { domicilio, numero, monto } = this.state;
+    const { domicilio, numero, monto,edit } = this.state;
+    !edit ?
     db.collection("reg_pagos").add({
       domicilio: domicilio,
       numero: numero,
       fecha: t,
       monto: parseInt(monto),
-    });
+    }):this.update();
     if (!c) {
       this.setState({
         domicilio: "",
@@ -57,6 +60,30 @@ export default class Todos extends Component {
       });
     }
   };
+  getTodo= (id) => {
+let docRef = db.collection("reg_pagos").doc(id);
+docRef.get().then((doc) => {
+  if(doc.exists){
+    this.setState({
+      monto:doc.data.monto,
+      //nose de donde obtienes la fecha pero la idea es esa en la linea de abajo 
+      fecha:doc.data.fecha,
+      id:true,
+      id:doc.id
+    })
+  }else{console.log("documento no existe")}
+}).catch((error)=>{
+  console.log(error)
+})
+  }
+
+  update=()=>{
+    const{id,monto}= this.state;
+    db.collection("reg_pagos").doc(id).update({
+      //aqui falta la fecha para actualizar
+      monto:monto
+    }).then(()=>{console.log("actualizado")}).catch((error)=>{console.log(error)})
+  }
   render() {
     let date = new Date();
     let dia = date.getDate();
@@ -204,6 +231,15 @@ export default class Todos extends Component {
                       <TableCell align="center">{item.data.numero}</TableCell>
                       <TableCell align="center">{item.data.fecha}</TableCell>
                       <TableCell align="center">{item.data.monto}</TableCell>
+                      <TableCell align="center">
+                        <Button color="primary" 
+                        variant="outlined"
+                        onClick={()=>this.getTodo(item.id)}
+                        >Editar</Button>
+                      </TableCell>
+                      <TableCell align="center">
+                        <Button color="secondary" variant="outlined">Eliminar</Button>
+                      </TableCell>
                     </TableRow>
                   ))
                 : null}
