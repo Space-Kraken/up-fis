@@ -23,8 +23,8 @@ export default class Todos extends Component {
     fecha: "",
     monto: "",
     ban: true,
-    edit:false,
-    id:""
+    edit: false,
+    id: "",
   };
 
   componentDidMount() {
@@ -36,18 +36,44 @@ export default class Todos extends Component {
       });
     });
   }
+  getTodo = (id) => {
+    db.collection("reg_pagos")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        console.log(doc.data().domicilio);
+        this.setState({
+          domicilio: doc.data().domicilio,
+          numero: doc.data().numero,
+          monto: doc.data().monto,
+        });
+      });
+    // let olddata = db.collection("reg_pagos").doc(id);
+    // var dom;
+    // var num;
+    // var mon;
+    // olddata.get().then(function (doc) {
+    //   // console.log(doc.data().domicilio);
+    //   dom = doc.data().domicilio;
+    //   num = doc.data().numero;
+    //   mon = doc.data().monto;
+    //   // loadData(dom, num, mon);
+    //   console.log(dom + " " + num + " " + mon);
+    // });
+  };
   callback = () => {
     return <AlertDialog2 />;
   };
   action = (t, c) => {
-    const { domicilio, numero, monto,edit } = this.state;
-    !edit ?
-    db.collection("reg_pagos").add({
-      domicilio: domicilio,
-      numero: numero,
-      fecha: t,
-      monto: parseInt(monto),
-    }):this.update();
+    const { domicilio, numero, monto, edit } = this.state;
+    !edit
+      ? db.collection("reg_pagos").add({
+          domicilio: domicilio,
+          numero: numero,
+          fecha: t,
+          monto: parseInt(monto),
+        })
+      : this.update();
     if (!c) {
       this.setState({
         domicilio: "",
@@ -60,30 +86,25 @@ export default class Todos extends Component {
       });
     }
   };
-  getTodo= (id) => {
-let docRef = db.collection("reg_pagos").doc(id);
-docRef.get().then((doc) => {
-  if(doc.exists){
-    this.setState({
-      monto:doc.data.monto,
-      //nose de donde obtienes la fecha pero la idea es esa en la linea de abajo 
-      fecha:doc.data.fecha,
-      id:true,
-      id:doc.id
-    })
-  }else{console.log("documento no existe")}
-}).catch((error)=>{
-  console.log(error)
-})
-  }
+  setdates = () => {
+    console.log("it works");
+  };
 
-  update=()=>{
-    const{id,monto}= this.state;
-    db.collection("reg_pagos").doc(id).update({
-      //aqui falta la fecha para actualizar
-      monto:monto
-    }).then(()=>{console.log("actualizado")}).catch((error)=>{console.log(error)})
-  }
+  update = () => {
+    const { id, monto } = this.state;
+    db.collection("reg_pagos")
+      .doc(id)
+      .update({
+        //aqui falta la fecha para actualizar
+        monto: monto,
+      })
+      .then(() => {
+        console.log("actualizado");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   render() {
     let date = new Date();
     let dia = date.getDate();
@@ -146,6 +167,9 @@ docRef.get().then((doc) => {
             name="email"
             placeholder="Domicilio"
             value={domicilio}
+            ref={(input) => {
+              this.domInp = input;
+            }}
             onChange={(e) => {
               this.setState({
                 domicilio: e.target.value,
@@ -161,6 +185,9 @@ docRef.get().then((doc) => {
             name="email"
             placeholder="Numero"
             value={numero}
+            ref={(input) => {
+              this.numInp = input;
+            }}
             onChange={(e) => {
               this.setState({
                 numero: e.target.value,
@@ -178,6 +205,9 @@ docRef.get().then((doc) => {
             name="email"
             placeholder="Monto"
             value={monto}
+            ref={(input) => {
+              this.monInp = input;
+            }}
             onChange={(e) => {
               this.setState({
                 monto: e.target.value,
@@ -232,13 +262,18 @@ docRef.get().then((doc) => {
                       <TableCell align="center">{item.data.fecha}</TableCell>
                       <TableCell align="center">{item.data.monto}</TableCell>
                       <TableCell align="center">
-                        <Button color="primary" 
-                        variant="outlined"
-                        onClick={()=>this.getTodo(item.id)}
-                        >Editar</Button>
+                        <Button
+                          color="primary"
+                          variant="outlined"
+                          onClick={() => this.getTodo(item.id)}
+                        >
+                          Editar
+                        </Button>
                       </TableCell>
                       <TableCell align="center">
-                        <Button color="secondary" variant="outlined">Eliminar</Button>
+                        <Button color="secondary" variant="outlined">
+                          Eliminar
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))
