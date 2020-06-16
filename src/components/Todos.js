@@ -1,6 +1,9 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import db from "../utils/Firebase";
 import { makeStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,7 +11,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { Input } from "semantic-ui-react";
 import { InputGroup } from "reactstrap";
 import AlertDialog from "./pages/RegistroPagos/RegistroPagos";
@@ -16,18 +19,22 @@ import AlertDialog2 from "./pages/RegistroPagos/Informacion/RegistroPagos2";
 import Snackbar from "@material-ui/core/Snackbar";
 import "./Todos.scss";
 
-let isEditing = false;
 export default class Todos extends Component {
   state = {
     items: [],
     domicilio: "",
+    TemDomicilio: "",
     numero: "",
+    TemNumero: "",
     fecha: "",
+    TemFecha: "",
     monto: "",
+    TemMonto: "",
     ban: true,
     edit: false,
     idkey: "",
     snak: false,
+    del: false,
   };
 
   componentDidMount() {
@@ -39,8 +46,8 @@ export default class Todos extends Component {
       });
     });
   }
+
   getTodo = (id) => {
-    isEditing = true;
     db.collection("reg_pagos")
       .doc(id)
       .get()
@@ -52,6 +59,33 @@ export default class Todos extends Component {
           monto: doc.data().monto,
           fecha: doc.data().fecha,
           edit: true,
+          idkey: id,
+        });
+      });
+    // let olddata = db.collection("reg_pagos").doc(id);
+    // var dom;
+    // var num;
+    // var mon;
+    // olddata.get().then(function (doc) {
+    //   // console.log(doc.data().domicilio);
+    //   dom = doc.data().domicilio;
+    //   num = doc.data().numero;
+    //   mon = doc.data().monto;
+    //   // loadData(dom, num, mon);
+    //   console.log(dom + " " + num + " " + mon);
+    // });
+  };
+  getTodo2 = (id) => {
+    db.collection("reg_pagos")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        console.log(doc.data().domicilio);
+        this.setState({
+          TemDomicilio: doc.data().domicilio,
+          TemNumero: doc.data().numero,
+          TemMonto: doc.data().monto,
+          TemFecha: doc.data().fecha,
           idkey: id,
         });
       });
@@ -132,13 +166,37 @@ export default class Todos extends Component {
     });
     // console.log(mon + "it works");
   };
+  delete = (mon) => {
+    db.collection("reg_pagos")
+      .doc(mon)
+      .delete()
+      .then(() => {
+        console.log("actualizado");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    this.setState({
+      del: true,
+    });
+    // this.setState({
+    //   domicilio: "",
+    //   numero: "",
+    //   monto: "",
+    //   snak: true,
+    //   edit: false,
+    // });
+    // console.log(mon + "it works");
+  };
   closeSnak = () => {
     this.setState({
       snak: false,
+      del: false,
       ban: true,
     });
   };
   render() {
+    // const classes = useStyles();
     let date = new Date();
     let dia = date.getDate();
     if (date.getDate() < 10) {
@@ -149,7 +207,17 @@ export default class Todos extends Component {
       mes = "0" + (date.getMonth() + 1);
     }
     let datetime = String(dia + "/" + mes + "/" + date.getFullYear());
-    const { items, domicilio, numero, fecha, monto } = this.state;
+    const {
+      items,
+      domicilio,
+      numero,
+      fecha,
+      monto,
+      TemDomicilio,
+      TemMonto,
+      TemFecha,
+      TemNumero,
+    } = this.state;
     // fecha = "test";
     let suma = 0;
     function sumar() {
@@ -285,8 +353,8 @@ export default class Todos extends Component {
         <TableContainer component={Paper}>
           <Table
             // className={classes.table}
-            size="small"
-            aria-label="a dense table"
+            size="medium"
+            // aria-label="a dense table"
           >
             <TableHead>
               <TableRow>
@@ -294,6 +362,7 @@ export default class Todos extends Component {
                 <TableCell align="center">Numero</TableCell>
                 <TableCell align="center">Fecha</TableCell>
                 <TableCell align="center">Monto</TableCell>
+                <TableCell align="center">Accion</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -307,19 +376,43 @@ export default class Todos extends Component {
                       <TableCell align="center">{item.data.fecha}</TableCell>
                       <TableCell align="center">{item.data.monto}</TableCell>
                       <TableCell align="center">
-                        <Button
+                        <IconButton
+                          onClick={() => this.getTodo(item.id)}
+                          aria-label="delete"
+                          size="small"
+                        >
+                          <EditIcon fontSize="small" color="primary" />
+                        </IconButton>
+                        {/* <IconButton
+                            onClick={() => this.delete(item.id)}
+                            aria-label="delete"
+                            size="small"
+                          >
+                            <DeleteIcon fontSize="small" color="error" />
+                          </IconButton> */}
+                        <AlertDialog2
+                          itemId={item.id}
+                          className="btn"
+                          dom={TemDomicilio}
+                          num={TemNumero}
+                          monto={TemMonto}
+                          fecha={TemFecha}
+                          method={this.delete}
+                          getTodo={this.getTodo2}
+                          whos={this.state.idkey}
+                        />
+
+                        {/* <Button
                           color="primary"
                           variant="outlined"
                           onClick={() => this.getTodo(item.id)}
                         >
                           Editar
-                        </Button>
-                      </TableCell>
-                      <TableCell align="center">
-                        {/* <Button color="secondary" variant="outlined">
-                          Eliminar
                         </Button> */}
                       </TableCell>
+                      {/* <TableCell align="center">
+                        
+                      </TableCell> */}
                     </TableRow>
                   ))
                 : null}
@@ -339,6 +432,16 @@ export default class Todos extends Component {
               ? "Se modifico el registro con exito"
               : "Se ha insertado un nuevo registro"
           }
+        />
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={this.state.del}
+          autoHideDuration={2000}
+          onClose={this.closeSnak}
+          message="Se ha eliminado un registro"
         />
       </div>
     );

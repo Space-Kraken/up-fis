@@ -81,7 +81,7 @@ export default function AlertDialog(props) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {!modify ? "¿Proceder con el pago?" : "Guardar Cambios?"}
+          {!modify ? "¿Proceder con el pago?" : "¿Guardar Cambios?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
