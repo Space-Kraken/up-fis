@@ -23,6 +23,7 @@ export default function AlertDialog(props) {
     oldMon,
     oldfecha,
     setModifyWarn,
+    negativeMon,
   } = props;
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
@@ -34,13 +35,21 @@ export default function AlertDialog(props) {
       if (dom === "" || num === "" || monto === "") {
         setError();
       } else {
-        setOpen(true);
+        if (monto > 0) {
+          setOpen(true);
+        } else {
+          negativeMon();
+        }
       }
     } else {
       if (monto === oldMon && datetime === oldfecha) {
         setModifyWarn();
       } else {
-        setOpen(true);
+        if (monto > 0) {
+          setOpen(true);
+        } else {
+          negativeMon();
+        }
       }
     }
     // if (dom === "" || num === "" || monto === "") {

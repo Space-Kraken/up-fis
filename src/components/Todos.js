@@ -34,6 +34,7 @@ export default class Todos extends Component {
     edit: false,
     idkey: "",
     snak: false,
+    negativeMont: false,
     del: false,
     inpDomErr: false,
     inpNumErr: false,
@@ -118,6 +119,13 @@ export default class Todos extends Component {
       inpMonErr: true,
       inpNumErr: true,
       err: true,
+    });
+  };
+  setMontError = () => {
+    this.setState({
+      inpMonErr: true,
+      err: true,
+      negativeMont: true,
     });
   };
   setModifyWarn = () => {
@@ -233,6 +241,8 @@ export default class Todos extends Component {
         ban: true,
         err: false,
         noModified: false,
+        negativeMon: false,
+        inpMonErr: false,
       });
     }, 100);
   };
@@ -350,8 +360,9 @@ export default class Todos extends Component {
             size="mini"
             name="email"
             placeholder="Monto"
-            error={this.state.inpNumErr}
+            error={this.state.inpMonErr}
             type="number"
+            min="1"
             value={monto}
             ref={(input) => {
               this.monInp = input;
@@ -388,6 +399,7 @@ export default class Todos extends Component {
             oldMon={this.state.TemMonto}
             oldfecha={this.state.TemFecha}
             setError={this.setError}
+            negativeMon={this.setMontError}
             setModifyWarn={this.setModifyWarn}
             method={this.action}
             modifyM={this.setMethoh}
@@ -511,6 +523,16 @@ export default class Todos extends Component {
           autoHideDuration={2000}
           onClose={this.closeSnak}
           message="No se ha modificado ningun campo"
+        />
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={this.state.negativeMont}
+          autoHideDuration={2000}
+          onClose={this.closeSnak}
+          message="El monto no puede ser negativo"
         />
       </div>
     );
