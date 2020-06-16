@@ -30,11 +30,24 @@ export default function AlertDialog(props) {
     setChecked(event.target.checked);
   };
   const handleClickOpen = () => {
-    if (dom === "" || num === "" || monto === "") {
-      setError();
+    if (!modify) {
+      if (dom === "" || num === "" || monto === "") {
+        setError();
+      } else {
+        setOpen(true);
+      }
     } else {
-      setOpen(true);
+      if (monto === oldMon && datetime === oldfecha) {
+        setModifyWarn();
+      } else {
+        setOpen(true);
+      }
     }
+    // if (dom === "" || num === "" || monto === "") {
+    //   setError();
+    // } else {
+    //   setOpen(true);
+    // }
   };
 
   const handleClose = () => {
@@ -44,13 +57,8 @@ export default function AlertDialog(props) {
 
   const handleAcept = () => {
     console.log(oldMon + "/" + monto);
-    if (monto === oldMon && datetime === oldfecha) {
-      setModifyWarn();
-      setOpen(false);
-    } else {
-      setOpen(false);
-      !modify ? method(ban, checked) : secMet(monto);
-    }
+    setOpen(false);
+    !modify ? method(ban, checked) : secMet(monto);
     // console.log("id: " + id + " monto: " + monto);
     // setselectedForm("lista");
   };
@@ -102,9 +110,11 @@ export default function AlertDialog(props) {
             <p>
               {!modify ? "Domimicilio: " + dom + " #" + num : null}
               <br></br>
-              {!modify ? "Monto a saldar: " + monto : "Nuevo monto: " + monto}
+              {!modify ? "Monto a saldar: " + monto : "Viejo monto: " + oldMon}
+              {!modify ? null + monto : " Nuevo monto: " + monto}
             </p>
-            {modify ? "Nueva fecha: " + datetime : null}
+            {modify ? "Fecha anterior: " + oldfecha : null}
+            {modify ? " Nueva fecha: " + datetime : null}
             {!modify ? "Realizar otro pago despues de este" : null}
             <Checkbox
               checked={checked}
