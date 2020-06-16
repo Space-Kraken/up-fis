@@ -538,7 +538,7 @@ export default class Todos extends Component {
           open={this.state.negativeMont}
           autoHideDuration={2000}
           onClose={this.closeSnak}
-          message="El monto no puede ser negativo"
+          message="El monto debe ser mayor a 0"
         />
       </div>
     );
