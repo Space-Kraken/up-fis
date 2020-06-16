@@ -9,7 +9,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import AlertDialog2 from "./Informacion/RegistroPagos2";
 import App from "./../../../App";
 export default function AlertDialog(props) {
-  const { ban, dom, num, monto, method } = props;
+  const { ban, dom, num, monto, method, secMet, modify, modifyM } = props;
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
 
@@ -27,8 +27,13 @@ export default function AlertDialog(props) {
 
   const handleAcept = () => {
     setOpen(false);
-    method(ban, checked);
+    !modify ? method(ban, checked) : secMet(monto);
+    // console.log("id: " + id + " monto: " + monto);
     // setselectedForm("lista");
+  };
+  const cancelModify = () => {
+    modifyM();
+    console.log(modify);
   };
   return (
     <div>
@@ -36,10 +41,20 @@ export default function AlertDialog(props) {
         size="large"
         variant="contained"
         color="default"
-        onClick={handleClickOpen}
+        onClick={!modify ? handleClickOpen : cancelModify}
       >
-        Registrar pago
+        {!modify ? "Registrar pago" : "Cancelar"}
       </Button>
+      <Button
+        size="large"
+        variant="contained"
+        color="default"
+        onClick={handleClickOpen}
+        disabled={!modify}
+      >
+        Guardar cambios
+      </Button>
+
       {/* <Button
         variant="contained"
         color="default"

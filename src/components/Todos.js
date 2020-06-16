@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import db from "../utils/Firebase";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -15,6 +15,7 @@ import AlertDialog from "./pages/RegistroPagos/RegistroPagos";
 import AlertDialog2 from "./pages/RegistroPagos/Informacion/RegistroPagos2";
 import "./Todos.scss";
 
+let isEditing = false;
 export default class Todos extends Component {
   state = {
     items: [],
@@ -24,7 +25,7 @@ export default class Todos extends Component {
     monto: "",
     ban: true,
     edit: false,
-    id: "",
+    idkey: "",
   };
 
   componentDidMount() {
@@ -37,6 +38,7 @@ export default class Todos extends Component {
     });
   }
   getTodo = (id) => {
+    isEditing = true;
     db.collection("reg_pagos")
       .doc(id)
       .get()
@@ -46,6 +48,8 @@ export default class Todos extends Component {
           domicilio: doc.data().domicilio,
           numero: doc.data().numero,
           monto: doc.data().monto,
+          edit: true,
+          idkey: id,
         });
       });
     // let olddata = db.collection("reg_pagos").doc(id);
@@ -64,6 +68,14 @@ export default class Todos extends Component {
   callback = () => {
     return <AlertDialog2 />;
   };
+  setMethoh = () => {
+    this.setState({
+      domicilio: "",
+      numero: "",
+      monto: "",
+      edit: false,
+    });
+  };
   action = (t, c) => {
     const { domicilio, numero, monto, edit } = this.state;
     !edit
@@ -79,6 +91,7 @@ export default class Todos extends Component {
         domicilio: "",
         numero: "",
         monto: "",
+        edit: false,
       });
     } else {
       this.setState({
@@ -90,13 +103,12 @@ export default class Todos extends Component {
     console.log("it works");
   };
 
-  update = () => {
-    const { id, monto } = this.state;
+  update = (mon) => {
     db.collection("reg_pagos")
-      .doc(id)
+      .doc(this.state.idkey)
       .update({
         //aqui falta la fecha para actualizar
-        monto: monto,
+        monto: parseInt(mon),
       })
       .then(() => {
         console.log("actualizado");
@@ -104,6 +116,13 @@ export default class Todos extends Component {
       .catch((error) => {
         console.log(error);
       });
+    this.setState({
+      domicilio: "",
+      numero: "",
+      monto: "",
+      edit: false,
+    });
+    // console.log(mon + "it works");
   };
   render() {
     let date = new Date();
@@ -170,6 +189,7 @@ export default class Todos extends Component {
             ref={(input) => {
               this.domInp = input;
             }}
+            disabled={this.state.edit}
             onChange={(e) => {
               this.setState({
                 domicilio: e.target.value,
@@ -188,6 +208,7 @@ export default class Todos extends Component {
             ref={(input) => {
               this.numInp = input;
             }}
+            disabled={this.state.edit}
             onChange={(e) => {
               this.setState({
                 numero: e.target.value,
@@ -233,6 +254,10 @@ export default class Todos extends Component {
             num={numero}
             monto={monto}
             method={this.action}
+            modifyM={this.setMethoh}
+            modify={this.state.edit}
+            whos={this.state.idkey}
+            secMet={this.update}
           />
         </div>
         <br></br>
@@ -271,9 +296,9 @@ export default class Todos extends Component {
                         </Button>
                       </TableCell>
                       <TableCell align="center">
-                        <Button color="secondary" variant="outlined">
+                        {/* <Button color="secondary" variant="outlined">
                           Eliminar
-                        </Button>
+                        </Button> */}
                       </TableCell>
                     </TableRow>
                   ))
