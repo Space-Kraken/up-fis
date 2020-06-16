@@ -30,7 +30,7 @@ export default class Todos extends Component {
     TemFecha: "",
     monto: "",
     TemMonto: "",
-    ban: true,
+    ban: false,
     edit: false,
     idkey: "",
     snak: false,
@@ -162,6 +162,15 @@ export default class Todos extends Component {
       this.setState({
         monto: "",
         snak: true,
+        edit: false,
+        ban: false,
+        snak: true,
+        inpDomErr: false,
+        inpMonErr: false,
+        inpNumErr: false,
+        TemMonto: "",
+        TemFecha: "",
+        err: false,
       });
     }
   };
@@ -217,11 +226,15 @@ export default class Todos extends Component {
   closeSnak = () => {
     this.setState({
       snak: false,
-      del: false,
-      ban: true,
-      err: false,
-      noModified: false,
     });
+    setTimeout(() => {
+      this.setState({
+        del: false,
+        ban: true,
+        err: false,
+        noModified: false,
+      });
+    }, 100);
   };
   render() {
     // const classes = useStyles();
