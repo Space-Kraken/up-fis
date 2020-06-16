@@ -48,6 +48,7 @@ export default class Todos extends Component {
           domicilio: doc.data().domicilio,
           numero: doc.data().numero,
           monto: doc.data().monto,
+          fecha: doc.data().fecha,
           edit: true,
           idkey: id,
         });
@@ -109,6 +110,7 @@ export default class Todos extends Component {
       .update({
         //aqui falta la fecha para actualizar
         monto: parseInt(mon),
+        fecha: this.state.fecha,
       })
       .then(() => {
         console.log("actualizado");
@@ -134,8 +136,8 @@ export default class Todos extends Component {
     if (date.getMonth() + 1 < 10) {
       mes = "0" + (date.getMonth() + 1);
     }
-    let fecha = String(dia + "/" + mes + "/" + date.getFullYear());
-    const { items, domicilio, numero, monto, ban } = this.state;
+    let datetime = String(dia + "/" + mes + "/" + date.getFullYear());
+    const { items, domicilio, numero, fecha, monto } = this.state;
     // fecha = "test";
     let suma = 0;
     function sumar() {
@@ -243,19 +245,25 @@ export default class Todos extends Component {
             size="mini"
             name="email"
             placeholder="Fecha"
-            value={fecha}
+            value={this.state.edit ? fecha : datetime}
+            onChange={(e) => {
+              this.setState({
+                fecha: e.target.value,
+              });
+            }}
           />
         </InputGroup>
         <div className="btn">
           <AlertDialog
             className="btn"
-            ban={fecha}
+            ban={datetime}
             dom={domicilio}
             num={numero}
             monto={monto}
             method={this.action}
             modifyM={this.setMethoh}
             modify={this.state.edit}
+            datetime={this.state.fecha}
             whos={this.state.idkey}
             secMet={this.update}
           />

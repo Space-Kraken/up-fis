@@ -9,7 +9,17 @@ import Checkbox from "@material-ui/core/Checkbox";
 import AlertDialog2 from "./Informacion/RegistroPagos2";
 import App from "./../../../App";
 export default function AlertDialog(props) {
-  const { ban, dom, num, monto, method, secMet, modify, modifyM } = props;
+  const {
+    ban,
+    dom,
+    num,
+    monto,
+    method,
+    secMet,
+    modify,
+    modifyM,
+    datetime,
+  } = props;
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
   const olvmont = monto;
@@ -81,6 +91,7 @@ export default function AlertDialog(props) {
               <br></br>
               {!modify ? "Monto a saldar: " + monto : "Nuevo monto: " + monto}
             </p>
+            {modify ? "Nueva fecha: " + datetime : null}
             {!modify ? "Realizar otro pago despues de este" : null}
             <Checkbox
               checked={checked}
