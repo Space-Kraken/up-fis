@@ -120,9 +120,11 @@ export default function AlertDialog(props) {
               {!modify ? "Domimicilio: " + dom + " #" + num : null}
               <br></br>
               {!modify ? "Monto a saldar: " + monto : "Viejo monto: " + oldMon}
+              {modify ? <br></br> : null}
               {!modify ? null : " Nuevo monto: " + monto}
             </p>
             {modify ? "Fecha anterior: " + oldfecha : null}
+            {modify ? <br></br> : null}
             {modify ? " Nueva fecha: " + datetime : null}
             {!modify ? "Realizar otro pago despues de este" : null}
             <Checkbox

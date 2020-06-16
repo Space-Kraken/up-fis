@@ -242,9 +242,15 @@ export default class Todos extends Component {
         err: false,
         noModified: false,
         negativeMon: false,
-        inpMonErr: false,
       });
     }, 100);
+    setTimeout(() => {
+      this.setState({
+        inpDomErr: false,
+        inpNumErr: false,
+        inpMonErr: false,
+      });
+    }, 1000);
   };
   render() {
     // const classes = useStyles();
