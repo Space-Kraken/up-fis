@@ -234,14 +234,14 @@ export default class Todos extends Component {
   closeSnak = () => {
     this.setState({
       snak: false,
+      del: false,
+      err: false,
+      noModified: false,
+      negativeMont: false,
     });
     setTimeout(() => {
       this.setState({
-        del: false,
         ban: true,
-        err: false,
-        noModified: false,
-        negativeMon: false,
       });
     }, 100);
     setTimeout(() => {
@@ -518,7 +518,7 @@ export default class Todos extends Component {
           open={this.state.err}
           autoHideDuration={2000}
           onClose={this.closeSnak}
-          message="Porfavor llene todos los campos"
+          message="Porfavor proporcione informacion valida en los campos"
         />
         <Snackbar
           anchorOrigin={{
@@ -538,7 +538,7 @@ export default class Todos extends Component {
           open={this.state.negativeMont}
           autoHideDuration={2000}
           onClose={this.closeSnak}
-          message="El monto debe ser mayor a 0"
+          message="El monto es invalido"
         />
       </div>
     );
