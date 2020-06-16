@@ -12,7 +12,7 @@ export default function AlertDialog(props) {
   const { ban, dom, num, monto, method, secMet, modify, modifyM } = props;
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
-
+  const olvmont = monto;
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
@@ -71,21 +71,22 @@ export default function AlertDialog(props) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"¿Proceder con el pago?"}
+          {!modify ? "¿Proceder con el pago?" : "Guardar Cambios?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Porfavor confirme que la informacion es correcta
-            <br></br>
-            {"Domimicilio: " + dom + "#" + num}
-            <br></br>
-            {"Monto a saldar: " + monto}
-            <br></br>
-            Realizar otro pago despues de este
+            <p>
+              {!modify ? "Domimicilio: " + dom + " #" + num : null}
+              <br></br>
+              {!modify ? "Monto a saldar: " + monto : "Nuevo monto: " + monto}
+            </p>
+            {!modify ? "Realizar otro pago despues de este" : null}
             <Checkbox
               checked={checked}
               onChange={handleChange}
               inputProps={{ "aria-label": "primary checkbox" }}
+              hidden={modify}
             />
           </DialogContentText>
         </DialogContent>
