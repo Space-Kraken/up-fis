@@ -111,7 +111,7 @@ export default function AlertDialog(props) {
               {!modify ? "Domimicilio: " + dom + " #" + num : null}
               <br></br>
               {!modify ? "Monto a saldar: " + monto : "Viejo monto: " + oldMon}
-              {!modify ? null + monto : " Nuevo monto: " + monto}
+              {!modify ? null : " Nuevo monto: " + monto}
             </p>
             {modify ? "Fecha anterior: " + oldfecha : null}
             {modify ? " Nueva fecha: " + datetime : null}
