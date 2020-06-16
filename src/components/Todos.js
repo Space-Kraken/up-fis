@@ -10,9 +10,10 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import { Input } from "semantic-ui-react";
-import { Row, Col, InputGroup } from "reactstrap";
+import { InputGroup } from "reactstrap";
 import AlertDialog from "./pages/RegistroPagos/RegistroPagos";
 import AlertDialog2 from "./pages/RegistroPagos/Informacion/RegistroPagos2";
+import Snackbar from "@material-ui/core/Snackbar";
 import "./Todos.scss";
 
 let isEditing = false;
@@ -26,6 +27,7 @@ export default class Todos extends Component {
     ban: true,
     edit: false,
     idkey: "",
+    snak: false,
   };
 
   componentDidMount() {
@@ -93,10 +95,13 @@ export default class Todos extends Component {
         numero: "",
         monto: "",
         edit: false,
+        ban: false,
+        snak: true,
       });
     } else {
       this.setState({
         monto: "",
+        snak: true,
       });
     }
   };
@@ -122,9 +127,16 @@ export default class Todos extends Component {
       domicilio: "",
       numero: "",
       monto: "",
+      snak: true,
       edit: false,
     });
     // console.log(mon + "it works");
+  };
+  closeSnak = () => {
+    this.setState({
+      snak: false,
+      ban: true,
+    });
   };
   render() {
     let date = new Date();
@@ -314,6 +326,20 @@ export default class Todos extends Component {
             </TableBody>
           </Table>
         </TableContainer>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={this.state.snak}
+          autoHideDuration={2000}
+          onClose={this.closeSnak}
+          message={
+            this.state.ban
+              ? "Se modifico el registro con exito"
+              : "Se ha insertado un nuevo registro"
+          }
+        />
       </div>
     );
   }
