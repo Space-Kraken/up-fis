@@ -328,8 +328,8 @@ export default class Todos extends Component {
         </TableContainer>
         <Snackbar
           anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
+            vertical: "top",
+            horizontal: "center",
           }}
           open={this.state.snak}
           autoHideDuration={2000}
