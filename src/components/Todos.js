@@ -35,6 +35,11 @@ export default class Todos extends Component {
     idkey: "",
     snak: false,
     del: false,
+    inpDomErr: false,
+    inpNumErr: false,
+    inpMonErr: false,
+    err: false,
+    noModified: false,
   };
 
   componentDidMount() {
@@ -58,6 +63,8 @@ export default class Todos extends Component {
           numero: doc.data().numero,
           monto: doc.data().monto,
           fecha: doc.data().fecha,
+          TemMonto: doc.data().monto,
+          TemFecha: doc.data().fecha,
           edit: true,
           idkey: id,
         });
@@ -105,6 +112,19 @@ export default class Todos extends Component {
   callback = () => {
     return <AlertDialog2 />;
   };
+  setError = () => {
+    this.setState({
+      inpDomErr: true,
+      inpMonErr: true,
+      inpNumErr: true,
+      err: true,
+    });
+  };
+  setModifyWarn = () => {
+    this.setState({
+      noModified: true,
+    });
+  };
   setMethoh = () => {
     this.setState({
       domicilio: "",
@@ -131,6 +151,12 @@ export default class Todos extends Component {
         edit: false,
         ban: false,
         snak: true,
+        inpDomErr: false,
+        inpMonErr: false,
+        inpNumErr: false,
+        TemMonto: "",
+        TemFecha: "",
+        err: false,
       });
     } else {
       this.setState({
@@ -193,6 +219,8 @@ export default class Todos extends Component {
       snak: false,
       del: false,
       ban: true,
+      err: false,
+      noModified: false,
     });
   };
   render() {
@@ -267,6 +295,7 @@ export default class Todos extends Component {
             size="mini"
             name="email"
             placeholder="Domicilio"
+            error={this.state.inpDomErr}
             value={domicilio}
             ref={(input) => {
               this.domInp = input;
@@ -286,6 +315,7 @@ export default class Todos extends Component {
             size="mini"
             name="email"
             placeholder="Numero"
+            error={this.state.inpNumErr}
             value={numero}
             ref={(input) => {
               this.numInp = input;
@@ -307,6 +337,8 @@ export default class Todos extends Component {
             size="mini"
             name="email"
             placeholder="Monto"
+            error={this.state.inpNumErr}
+            type="number"
             value={monto}
             ref={(input) => {
               this.monInp = input;
@@ -340,6 +372,10 @@ export default class Todos extends Component {
             dom={domicilio}
             num={numero}
             monto={monto}
+            oldMon={this.state.TemMonto}
+            oldfecha={this.state.TemFecha}
+            setError={this.setError}
+            setModifyWarn={this.setModifyWarn}
             method={this.action}
             modifyM={this.setMethoh}
             modify={this.state.edit}
@@ -442,6 +478,26 @@ export default class Todos extends Component {
           autoHideDuration={2000}
           onClose={this.closeSnak}
           message="Se ha eliminado un registro"
+        />
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={this.state.err}
+          autoHideDuration={2000}
+          onClose={this.closeSnak}
+          message="Porfavor llene todos los campos"
+        />
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={this.state.noModified}
+          autoHideDuration={2000}
+          onClose={this.closeSnak}
+          message="No se ha modificado ningun campo"
         />
       </div>
     );

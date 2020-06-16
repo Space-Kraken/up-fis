@@ -19,15 +19,22 @@ export default function AlertDialog(props) {
     modify,
     modifyM,
     datetime,
+    setError,
+    oldMon,
+    oldfecha,
+    setModifyWarn,
   } = props;
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
-  const olvmont = monto;
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
   const handleClickOpen = () => {
-    setOpen(true);
+    if (dom === "" || num === "" || monto === "") {
+      setError();
+    } else {
+      setOpen(true);
+    }
   };
 
   const handleClose = () => {
@@ -36,8 +43,14 @@ export default function AlertDialog(props) {
   };
 
   const handleAcept = () => {
-    setOpen(false);
-    !modify ? method(ban, checked) : secMet(monto);
+    console.log(oldMon + "/" + monto);
+    if (monto === oldMon && datetime === oldfecha) {
+      setModifyWarn();
+      setOpen(false);
+    } else {
+      setOpen(false);
+      !modify ? method(ban, checked) : secMet(monto);
+    }
     // console.log("id: " + id + " monto: " + monto);
     // setselectedForm("lista");
   };
